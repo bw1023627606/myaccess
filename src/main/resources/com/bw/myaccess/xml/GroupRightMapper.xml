@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.myaccess.dao.GroupRightMapper">
+  <resultMap id="BaseResultMap" type="com.bw.myaccess.entity.GroupRight">
+    <id column="tgr_id" jdbcType="BIGINT" property="tgrId" />
+    <result column="group_id" jdbcType="BIGINT" property="groupId" />
+    <result column="right_id" jdbcType="BIGINT" property="rightId" />
+    <result column="right_type" jdbcType="SMALLINT" property="rightType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tgr_id, group_id, right_id, right_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_group_right
+    where tgr_id = #{tgrId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_group_right
+    where tgr_id = #{tgrId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bw.myaccess.entity.GroupRight">
+    insert into tb_group_right (tgr_id, group_id, right_id, 
+      right_type)
+    values (#{tgrId,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT}, #{rightId,jdbcType=BIGINT}, 
+      #{rightType,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bw.myaccess.entity.GroupRight">
+    insert into tb_group_right
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tgrId != null">
+        tgr_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="rightId != null">
+        right_id,
+      </if>
+      <if test="rightType != null">
+        right_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tgrId != null">
+        #{tgrId,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="rightId != null">
+        #{rightId,jdbcType=BIGINT},
+      </if>
+      <if test="rightType != null">
+        #{rightType,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bw.myaccess.entity.GroupRight">
+    update tb_group_right
+    <set>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="rightId != null">
+        right_id = #{rightId,jdbcType=BIGINT},
+      </if>
+      <if test="rightType != null">
+        right_type = #{rightType,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where tgr_id = #{tgrId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bw.myaccess.entity.GroupRight">
+    update tb_group_right
+    set group_id = #{groupId,jdbcType=BIGINT},
+      right_id = #{rightId,jdbcType=BIGINT},
+      right_type = #{rightType,jdbcType=SMALLINT}
+    where tgr_id = #{tgrId,jdbcType=BIGINT}
+  </update>
+</mapper>

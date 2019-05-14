@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.myaccess.dao.LogMapper">
+  <resultMap id="BaseResultMap" type="com.bw.myaccess.entity.Log">
+    <id column="log_id" jdbcType="BIGINT" property="logId" />
+    <result column="op_type" jdbcType="SMALLINT" property="opType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="gen_time" jdbcType="TIMESTAMP" property="genTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bw.myaccess.entity.Log">
+    <result column="user_id" jdbcType="BINARY" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    log_id, op_type, content, gen_time
+  </sql>
+  <sql id="Blob_Column_List">
+    user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bw.myaccess.entity.Log">
+    insert into tb_log (log_id, op_type, content, 
+      gen_time, user_id)
+    values (#{logId,jdbcType=BIGINT}, #{opType,jdbcType=SMALLINT}, #{content,jdbcType=VARCHAR}, 
+      #{genTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=BINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bw.myaccess.entity.Log">
+    insert into tb_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        log_id,
+      </if>
+      <if test="opType != null">
+        op_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="genTime != null">
+        gen_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        #{logId,jdbcType=BIGINT},
+      </if>
+      <if test="opType != null">
+        #{opType,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="genTime != null">
+        #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bw.myaccess.entity.Log">
+    update tb_log
+    <set>
+      <if test="opType != null">
+        op_type = #{opType,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="genTime != null">
+        gen_time = #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BINARY},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bw.myaccess.entity.Log">
+    update tb_log
+    set op_type = #{opType,jdbcType=SMALLINT},
+      content = #{content,jdbcType=VARCHAR},
+      gen_time = #{genTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BINARY}
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bw.myaccess.entity.Log">
+    update tb_log
+    set op_type = #{opType,jdbcType=SMALLINT},
+      content = #{content,jdbcType=VARCHAR},
+      gen_time = #{genTime,jdbcType=TIMESTAMP}
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getLogs" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_log
+  </select>
+  
+</mapper>

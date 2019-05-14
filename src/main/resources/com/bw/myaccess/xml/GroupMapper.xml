@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.myaccess.dao.GroupMapper">
+  <resultMap id="BaseResultMap" type="com.bw.myaccess.entity.Group">
+    <id column="tg_id" jdbcType="BIGINT" property="tgId" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="parent_tg_id" jdbcType="BIGINT" property="parentTgId" />
+    <result column="gen_time" jdbcType="TIMESTAMP" property="genTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tg_id, group_name, parent_tg_id, gen_time, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_group
+    where tg_id = #{tgId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_group
+    where tg_id = #{tgId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bw.myaccess.entity.Group">
+    insert into tb_group (tg_id, group_name, parent_tg_id, 
+      gen_time, description)
+    values (#{tgId,jdbcType=BIGINT}, #{groupName,jdbcType=VARCHAR}, #{parentTgId,jdbcType=BIGINT}, 
+      #{genTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bw.myaccess.entity.Group">
+    insert into tb_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tgId != null">
+        tg_id,
+      </if>
+      <if test="groupName != null">
+        group_name,
+      </if>
+      <if test="parentTgId != null">
+        parent_tg_id,
+      </if>
+      <if test="genTime != null">
+        gen_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tgId != null">
+        #{tgId,jdbcType=BIGINT},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentTgId != null">
+        #{parentTgId,jdbcType=BIGINT},
+      </if>
+      <if test="genTime != null">
+        #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bw.myaccess.entity.Group">
+    update tb_group
+    <set>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentTgId != null">
+        parent_tg_id = #{parentTgId,jdbcType=BIGINT},
+      </if>
+      <if test="genTime != null">
+        gen_time = #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tg_id = #{tgId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bw.myaccess.entity.Group">
+    update tb_group
+    set group_name = #{groupName,jdbcType=VARCHAR},
+      parent_tg_id = #{parentTgId,jdbcType=BIGINT},
+      gen_time = #{genTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
+    where tg_id = #{tgId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getGroups" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_group
+    
+  </select>
+</mapper>

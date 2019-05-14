@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.myaccess.dao.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.bw.myaccess.entity.UserRole">
+    <id column="tur_id" jdbcType="BIGINT" property="turId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tur_id, user_id, role_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user_role
+    where tur_id = #{turId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_user_role
+    where tur_id = #{turId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bw.myaccess.entity.UserRole">
+    insert into tb_user_role (tur_id, user_id, role_id
+      )
+    values (#{turId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bw.myaccess.entity.UserRole">
+    insert into tb_user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="turId != null">
+        tur_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="turId != null">
+        #{turId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bw.myaccess.entity.UserRole">
+    update tb_user_role
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where tur_id = #{turId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bw.myaccess.entity.UserRole">
+    update tb_user_role
+    set user_id = #{userId,jdbcType=BIGINT},
+      role_id = #{roleId,jdbcType=BIGINT}
+    where tur_id = #{turId,jdbcType=BIGINT}
+  </update>
+</mapper>

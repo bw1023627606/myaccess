@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.myaccess.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.bw.myaccess.entity.Role">
+    <id column="tr_id" jdbcType="BIGINT" property="trId" />
+    <result column="parent_tr_id" jdbcType="BIGINT" property="parentTrId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="gen_time" jdbcType="TIMESTAMP" property="genTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tr_id, parent_tr_id, role_name, gen_time, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_role
+    where tr_id = #{trId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_role
+    where tr_id = #{trId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bw.myaccess.entity.Role">
+    insert into tb_role (tr_id, parent_tr_id, role_name, 
+      gen_time, description)
+    values (#{trId,jdbcType=BIGINT}, #{parentTrId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, 
+      #{genTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bw.myaccess.entity.Role">
+    insert into tb_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="trId != null">
+        tr_id,
+      </if>
+      <if test="parentTrId != null">
+        parent_tr_id,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="genTime != null">
+        gen_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="trId != null">
+        #{trId,jdbcType=BIGINT},
+      </if>
+      <if test="parentTrId != null">
+        #{parentTrId,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="genTime != null">
+        #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bw.myaccess.entity.Role">
+    update tb_role
+    <set>
+      <if test="parentTrId != null">
+        parent_tr_id = #{parentTrId,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="genTime != null">
+        gen_time = #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tr_id = #{trId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bw.myaccess.entity.Role">
+    update tb_role
+    set parent_tr_id = #{parentTrId,jdbcType=BIGINT},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      gen_time = #{genTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
+    where tr_id = #{trId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getRoles" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_role
+  </select>
+  
+</mapper>

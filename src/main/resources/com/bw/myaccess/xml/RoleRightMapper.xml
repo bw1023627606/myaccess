@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.myaccess.dao.RoleRightMapper">
+  <resultMap id="BaseResultMap" type="com.bw.myaccess.entity.RoleRight">
+    <id column="trr_id" jdbcType="BIGINT" property="trrId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="right_id" jdbcType="BIGINT" property="rightId" />
+    <result column="right_type" jdbcType="SMALLINT" property="rightType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    trr_id, role_id, right_id, right_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_role_right
+    where trr_id = #{trrId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_role_right
+    where trr_id = #{trrId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bw.myaccess.entity.RoleRight">
+    insert into tb_role_right (trr_id, role_id, right_id, 
+      right_type)
+    values (#{trrId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{rightId,jdbcType=BIGINT}, 
+      #{rightType,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bw.myaccess.entity.RoleRight">
+    insert into tb_role_right
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="trrId != null">
+        trr_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="rightId != null">
+        right_id,
+      </if>
+      <if test="rightType != null">
+        right_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="trrId != null">
+        #{trrId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="rightId != null">
+        #{rightId,jdbcType=BIGINT},
+      </if>
+      <if test="rightType != null">
+        #{rightType,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bw.myaccess.entity.RoleRight">
+    update tb_role_right
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="rightId != null">
+        right_id = #{rightId,jdbcType=BIGINT},
+      </if>
+      <if test="rightType != null">
+        right_type = #{rightType,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where trr_id = #{trrId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bw.myaccess.entity.RoleRight">
+    update tb_role_right
+    set role_id = #{roleId,jdbcType=BIGINT},
+      right_id = #{rightId,jdbcType=BIGINT},
+      right_type = #{rightType,jdbcType=SMALLINT}
+    where trr_id = #{trrId,jdbcType=BIGINT}
+  </update>
+</mapper>

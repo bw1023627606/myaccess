@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.myaccess.dao.OrganMapper">
+  <resultMap id="BaseResultMap" type="com.bw.myaccess.entity.Organ">
+    <id column="to_id" jdbcType="BIGINT" property="toId" />
+    <result column="parent_to_id" jdbcType="BIGINT" property="parentToId" />
+    <result column="ogr_name" jdbcType="VARCHAR" property="ogrName" />
+    <result column="gen_time" jdbcType="TIMESTAMP" property="genTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    to_id, parent_to_id, ogr_name, gen_time, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_organization
+    where to_id = #{toId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_organization
+    where to_id = #{toId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bw.myaccess.entity.Organ">
+    insert into tb_organization (to_id, parent_to_id, ogr_name, 
+      gen_time, description)
+    values (#{toId,jdbcType=BIGINT}, #{parentToId,jdbcType=BIGINT}, #{ogrName,jdbcType=VARCHAR}, 
+      #{genTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bw.myaccess.entity.Organ">
+    insert into tb_organization
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="toId != null">
+        to_id,
+      </if>
+      <if test="parentToId != null">
+        parent_to_id,
+      </if>
+      <if test="ogrName != null">
+        ogr_name,
+      </if>
+      <if test="genTime != null">
+        gen_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="toId != null">
+        #{toId,jdbcType=BIGINT},
+      </if>
+      <if test="parentToId != null">
+        #{parentToId,jdbcType=BIGINT},
+      </if>
+      <if test="ogrName != null">
+        #{ogrName,jdbcType=VARCHAR},
+      </if>
+      <if test="genTime != null">
+        #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bw.myaccess.entity.Organ">
+    update tb_organization
+    <set>
+      <if test="parentToId != null">
+        parent_to_id = #{parentToId,jdbcType=BIGINT},
+      </if>
+      <if test="ogrName != null">
+        ogr_name = #{ogrName,jdbcType=VARCHAR},
+      </if>
+      <if test="genTime != null">
+        gen_time = #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where to_id = #{toId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bw.myaccess.entity.Organ">
+    update tb_organization
+    set parent_to_id = #{parentToId,jdbcType=BIGINT},
+      ogr_name = #{ogrName,jdbcType=VARCHAR},
+      gen_time = #{genTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
+    where to_id = #{toId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getOrgans" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_organization
+    where 1=1
+  </select>
+  
+  
+</mapper>

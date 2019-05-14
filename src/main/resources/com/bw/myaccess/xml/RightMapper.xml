@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.myaccess.dao.RightMapper">
+  <resultMap id="BaseResultMap" type="com.bw.myaccess.entity.Right">
+    <id column="trt_id" jdbcType="BIGINT" property="trtId" />
+    <result column="parent_trt_id" jdbcType="BIGINT" property="parentTrtId" />
+    <result column="right_name" jdbcType="VARCHAR" property="rightName" />
+    <result column="gen_time" jdbcType="TIMESTAMP" property="genTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    trt_id, parent_trt_id, right_name, gen_time, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_right
+    where trt_id = #{trtId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_right
+    where trt_id = #{trtId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bw.myaccess.entity.Right">
+    insert into tb_right (trt_id, parent_trt_id, right_name, 
+      gen_time, description)
+    values (#{trtId,jdbcType=BIGINT}, #{parentTrtId,jdbcType=BIGINT}, #{rightName,jdbcType=VARCHAR}, 
+      #{genTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bw.myaccess.entity.Right">
+    insert into tb_right
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="trtId != null">
+        trt_id,
+      </if>
+      <if test="parentTrtId != null">
+        parent_trt_id,
+      </if>
+      <if test="rightName != null">
+        right_name,
+      </if>
+      <if test="genTime != null">
+        gen_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="trtId != null">
+        #{trtId,jdbcType=BIGINT},
+      </if>
+      <if test="parentTrtId != null">
+        #{parentTrtId,jdbcType=BIGINT},
+      </if>
+      <if test="rightName != null">
+        #{rightName,jdbcType=VARCHAR},
+      </if>
+      <if test="genTime != null">
+        #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bw.myaccess.entity.Right">
+    update tb_right
+    <set>
+      <if test="parentTrtId != null">
+        parent_trt_id = #{parentTrtId,jdbcType=BIGINT},
+      </if>
+      <if test="rightName != null">
+        right_name = #{rightName,jdbcType=VARCHAR},
+      </if>
+      <if test="genTime != null">
+        gen_time = #{genTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trt_id = #{trtId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bw.myaccess.entity.Right">
+    update tb_right
+    set parent_trt_id = #{parentTrtId,jdbcType=BIGINT},
+      right_name = #{rightName,jdbcType=VARCHAR},
+      gen_time = #{genTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
+    where trt_id = #{trtId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getRights" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_right
+  </select>
+</mapper>
