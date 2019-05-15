@@ -3,7 +3,6 @@ package com.bw.myaccess.biz.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.bw.myaccess.biz.UserService;
@@ -54,6 +53,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> selectByToId(Long toId) {
 		return userMapper.selectByToId(toId);
+	}
+
+	@Override
+	public User selectByLoginName(String loginName) {
+		return userMapper.selectByLoginName(loginName);
 	}
 
 }

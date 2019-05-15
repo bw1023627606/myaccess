@@ -6,7 +6,7 @@ $(function() {
 	});
 
 	$.get("login/getOption", function(json) {
-		// console.log(json);
+		 console.log(json);
 		var option = '';
 		$.each(json, function(i, v) {
 			option += "<option value='" + i + "'>" + v + "</option>";

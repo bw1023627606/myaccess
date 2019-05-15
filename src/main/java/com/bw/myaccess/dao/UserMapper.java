@@ -23,6 +23,8 @@ public interface UserMapper {
     
     List<User> selectByToId(Long toId);
     
+    User selectByLoginName(String loginName);
+    
 //    List<User> selectUsers(Map<String, Object> map);
     
     

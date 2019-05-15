@@ -22,5 +22,7 @@ public interface UserService {
 	
 	public List<User> getUsers();
 	
-	List<User> selectByToId(Long toId);
+	public List<User> selectByToId(Long toId);
+	
+	public User selectByLoginName(String loginName);
 }
